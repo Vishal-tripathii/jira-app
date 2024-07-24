@@ -60,7 +60,6 @@ export const sample_user: any[] = [
       name: "John Doe",
       email: "john@gmail.com",
       password: "12345",
-      address: "Toronto On",
-      isAdmin: true,
+      role: 'ROLA'
   }
 ]

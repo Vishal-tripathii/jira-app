@@ -1,41 +1,7 @@
-for settring up backend for angular, 
-Create a backend folder
--npm init -y, npm install typescript
--add a new tsconfig.json file and paste the code there
--create a src folder inside backed folder
--create a gitignore file inside backend folder and add node-modules there
--add the data to the backednd inside src -> data.ts and define any at this point necause we need dofferent configs for the data types in backend
--npm install express cors
--creating server.ts file inside src folder -> server.ts
--npm i --save-dev @types/express
--npm i @types/cors
-tell cors to accept the request from my localhost 4200
--npm install ts-node --save-dev
---npm install nodemon --save-dev
-
-now in package.json(backend), add start script inside script -> "start": "cd src && nodemon server.ts",
-
-this is basics to start backend
-
---------------------------------------
-the of operator of rxjs makes the vlue as observble
-so i'v used it to take values in  home component from taskObservable
-----------------------------
-added new branch intergating-atabase
--------------------------------------------
--creatd mongodb database, added the getall() call to fetch data from api
--intergated with the frontend as well (for getAll() call only)
-
--i need to update the database only when there is update, delete, edit on the list
--on every mentioned action, i will update the database, store the updated value in localStorage as well, thats all for thi commit
-
-=-=--------------------------------------------------------------------------------------------------------
-need to update the header when logged in
-need to implement logout
- -for logout, we have to clear the userData
- -user should not able to go back to login after being logged in
- 
----------------------------------------------------------------------------------------------
--maintaining a userId of loggedin user which i am also asigning to the newly created task
--now when user fetches the database, he would only retrieve the data which that user have created and not the entire database
-----------------------------------------------------
+task #1
+-to create user register based on the roles
+ -user login would include: role(role: SE/etc, name, email, password, )
+-roles may include Employee, manager, Admin
+-change the sample data as well
+-user may have the following information: 
+ -name, assigned manager, assigned team(names of teams //None for now), assigned role(could be employee, manager, admin, // employee for now), assigned tasks

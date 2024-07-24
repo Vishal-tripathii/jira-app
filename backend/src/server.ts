@@ -40,6 +40,7 @@ const TaskSchema = new mongoose.Schema({
 });
 
 const UserSchema = new mongoose.Schema({
+    role: {type: String, required: true},
     name: { type: String, required: true },
     email: { type: String, required: true },
     password: { type: String, required: true }
@@ -184,10 +185,8 @@ app.post('/api/task/editTask', async (req, res) => {
     }
 });
 
-app.post('/api/task/login', async (req, res) => {
+app.post('/api/jira/login', async (req, res) => {
     const { email, password } = req.body;
-    console.log(email, password, "Email-password");
-
     try {
         const user = await User.findOne({ email: email });
         console.log(user, "Userr");
@@ -205,13 +204,12 @@ app.post('/api/task/login', async (req, res) => {
     }
 });
 
-app.post('/api/task/register', async (req, resp) => {
+app.post('/api/jira/register', async (req, resp) => {
     try {
         const newUser = req.body;
         // Check if user already exists
         const existingUser = await User.findOne({ email: newUser.email });
         if (existingUser) {
-            console.log("User already exists");
             return resp.status(400).send('User already exists');
         }
         const user = new User(newUser);

@@ -5,7 +5,12 @@
             <input type="text" placeholder="name" formControlName="name">
             <input type="text" placeholder="email" formControlName="email">
             <input type="text" placeholder="password" formControlName="password">
-
+            <label for="role">
+                <select id="role" formControlName="role">
+                    <option value="" disabled selected>Select a role</option>
+                    <option *ngFor="let roles of roleValues" [value]="roles">{{ roles }}</option>
+                </select>
+            </label>
             <button text="Register">Register</button>
             <div class="login">
                 Already a user?
