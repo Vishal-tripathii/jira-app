@@ -185,7 +185,7 @@ app.post('/api/task/editTask', async (req, res) => {
     }
 });
 
-app.post('/api/jira/login', async (req, res) => {
+app.post('/api/task/login', async (req, res) => {
     const { email, password } = req.body;
     try {
         const user = await User.findOne({ email: email });
@@ -204,7 +204,7 @@ app.post('/api/jira/login', async (req, res) => {
     }
 });
 
-app.post('/api/jira/register', async (req, resp) => {
+app.post('/api/task/register', async (req, resp) => {
     try {
         const newUser = req.body;
         // Check if user already exists
