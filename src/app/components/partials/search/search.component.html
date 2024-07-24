@@ -1,0 +1,5 @@
+<div class="search-container">
+       <input #s type="text" placeholder="Search Tasks!" (keyup.enter)="search(s.value)" [value]="searchTerm"
+              class="search-input" />
+       <button (click)="search(s.value)" class="search-button">Search</button>
+</div>

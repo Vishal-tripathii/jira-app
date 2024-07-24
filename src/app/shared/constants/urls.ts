@@ -1,0 +1,9 @@
+const BASE_URL = "http://localhost:5000"
+export const TASK_URL = BASE_URL + '/api/task';
+export const TASK_DELETE_URL = TASK_URL + '/'
+export const TASK_NEW_URL = TASK_URL + '/addNewTask'
+export const TASK_COMPLETED_URL = TASK_URL + '/markAsComplete'
+export const TASK_EDIT_URL = TASK_URL + "/editTask"
+
+export const TASK_LOGIN_URL = TASK_URL + "/login"
+export const TASK_REGISTER_URL = TASK_URL + "/register"

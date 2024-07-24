@@ -1,0 +1,14 @@
+<app-search></app-search>
+<app-filter></app-filter>
+<app-not-found [notFound]="notFound" [notFoundMessage]="'No tasks yet!'"></app-not-found>
+
+<div *ngIf="!notFound" class="tasks-container">
+  <div *ngFor="let item of task" class="task-item">
+    <a (click)="goto(item.id)">
+      <app-task-card [task]="item"></app-task-card>
+    </a>
+  </div>
+</div>
+<button class="add-task-btn" (click)="createNewTask()">
+  <mat-icon>note_add</mat-icon>
+</button>

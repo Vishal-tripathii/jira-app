@@ -1,0 +1,84 @@
+.container {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 20px;
+  padding: 20px;
+  width: 300px;  /* Fixed width */
+  height: 200px; /* Fixed height */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.header {
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title {
+  font-size: 1.2em;
+  font-weight: bold;
+  white-space: nowrap;       /* Prevent text wrapping */
+  overflow: hidden;          /* Hide overflow */
+  text-overflow: ellipsis;   /* Add ellipsis */
+}
+
+.date {
+  font-size: 0.9em;
+  color: #888;
+  white-space: nowrap;       /* Prevent text wrapping */
+  overflow: hidden;          /* Hide overflow */
+  text-overflow: ellipsis;   /* Add ellipsis */
+}
+
+.description {
+  font-size: 1em;
+  color: #555;
+  margin-bottom: 20px;
+  flex-grow: 1;
+  overflow: hidden;          /* Hide overflow */
+  text-overflow: ellipsis;   /* Add ellipsis */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;     /* Number of lines before truncating */
+  -webkit-box-orient: vertical;
+}
+
+.footer {
+  border-top: 1px solid #ddd;
+  padding-top: 10px;
+  margin-top: 10px;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.priority {
+  font-weight: bold;
+  font-size: 0.9em;
+  color: #555;
+  white-space: nowrap;       /* Prevent text wrapping */
+  overflow: hidden;          /* Hide overflow */
+  text-overflow: ellipsis;   /* Add ellipsis */
+}
+
+.complete {
+  font-style: italic;
+  color: green;
+}
+
+.incomplete {
+  font-style: italic;
+  color: red;
+}

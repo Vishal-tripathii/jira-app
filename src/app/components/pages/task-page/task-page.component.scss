@@ -1,0 +1,59 @@
+.task-page {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.task-name {
+  font-size: 2.5em;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.task-details {
+  font-size: 1.5em;
+  color: #555;
+  margin-top: 20px;
+}
+
+.task-details p {
+  margin-bottom: 10px;
+}
+
+.task-details strong {
+  font-weight: bold;
+}
+
+@media (max-width: 600px) {
+  .task-page {
+    padding: 10px;
+  }
+
+  .task-name {
+    font-size: 2em;
+  }
+
+  .task-details {
+    font-size: 1.2em;
+  }
+}
+
+.complete {
+  font-style: italic;
+  color: green;
+}
+
+.incomplete {
+  font-style: italic;
+  color: red;
+}
+
+.action-container {
+  display: flex;
+  justify-content: space-around;
+}

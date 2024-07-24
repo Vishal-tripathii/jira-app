@@ -1,0 +1,229 @@
+import express from 'express';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import { sample_tasks, sample_user } from './data';
+import mongoose from 'mongoose'
+import jwt from 'jsonwebtoken'
+
+dotenv.config();
+
+const PORT = 5000;
+const app = express();
+app.use(cors({
+    credentials: true,
+    origin: ['http://localhost:4200']
+}));
+
+app.use(express.json()); // To parse JSON bodies
+app.use(express.urlencoded({ extended: true })); // To parse URL-encoded bodies
+
+const mongoURI = process.env.MONGO_URI;
+
+mongoose.connect(mongoURI!)
+    .then(() => {
+        console.log("Connected to MongoDB");
+        initializeDatabase();
+        initilizeUser();
+    })
+    .catch(err => {
+        console.error("Error connecting to MongoDB:", err);
+    });
+
+const TaskSchema = new mongoose.Schema({
+    id: { type: String, required: true },
+    name: { type: String, required: true },
+    description: { type: String, required: true },
+    priority: { type: String, required: true },
+    dateCreated: { type: Date, default: Date.now },
+    dateModified: { type: Date, default: null },
+    isCompleted: { type: String }
+});
+
+const UserSchema = new mongoose.Schema({
+    name: { type: String, required: true },
+    email: { type: String, required: true },
+    password: { type: String, required: true }
+})
+
+const Task = mongoose.model('Task', TaskSchema);
+const User = mongoose.model('User', UserSchema)
+
+async function initializeDatabase() {
+    try {
+        // Check if the collection is empty
+        const count = await Task.countDocuments();
+        if (count === 0) {
+            console.log('Inserting sample tasks...');
+            await Task.insertMany(sample_tasks);
+            console.log('Sample tasks inserted');
+        }
+    } catch (err) {
+        console.error("Error initializing database:", err);
+    }
+}
+
+async function initilizeUser() {
+    try {
+        // Check if the collection is empty
+        const count = await User.countDocuments();
+        if (count === 0) {
+            console.log('Inserting sample tasks...');
+            await User.insertMany(sample_user);
+            console.log('sample user inserted');
+        }
+    } catch (err) {
+        console.error("Error initializing database:", err);
+    }
+}
+
+app.get('/api/task', async (req, resp) => {
+    const { userId } = req.query;
+    try {
+        const tasks = await Task.find({ id: userId });
+        resp.json(tasks);
+    } catch (err) {
+        resp.status(500).send(err);
+    }
+});
+
+app.get('/api/task/search/:searchTerm', async (req, resp) => {
+    try {
+        const searchItem = req.params.searchTerm;
+        const tasks = await Task.find({ name: new RegExp(searchItem, 'i') });
+        resp.json(tasks);
+    } catch (err) {
+        resp.status(500).send(err);
+    }
+});
+
+app.get('/api/task/:id', async (req, resp) => {
+    // try {
+    //     const taskId = req.params.id;
+    //     const task = await Task.findById(taskId);
+    //     resp.json(task);
+    // } catch (err) {
+    //     resp.status(500).send(err);
+    // }
+    const taskId = req.params.id;
+    const task = sample_tasks.find(task => task.id === taskId);
+    resp.send(task)
+});
+
+app.get('/api/task/tag/:tag', async (req, resp) => {
+    // try {
+    //     const myTag = req.params.tag;
+    //     const tasks = await Task.find({ isCompleted: myTag === 'true' });
+    //     resp.json(tasks);
+    // } catch (err) {
+    //     resp.status(500).send(err);
+    // }
+    const myTag = req.params.tag;
+    const task = sample_tasks.filter(task => task.isCompleted === myTag);
+    resp.send(task)
+});
+
+// delete a task by Id
+app.delete('/api/task/:id', async (req, resp) => {
+    const taskId = req.params.id;
+    try {
+        const result = await Task.deleteOne({ id: taskId })
+        if (result.deletedCount === 1) {
+            resp.status(200).send("Task Deleted Sucessfully")
+        }
+        else {
+            resp.status(500).send("Error delting the Task")
+        }
+    } catch (error) {
+        resp.status(500).send({ message: 'Error deleting task' });
+    }
+
+});
+
+// Creating a new Task
+
+app.post('/api/task/addNewTask', async (req, res) => {
+    try {
+        const newTask = req.body;
+        const task = new Task(newTask);
+        await task.save();
+        res.status(201).json(task);
+    } catch (err) {
+        res.status(500).send(err);
+    }
+});
+
+app.post('/api/task/markAsComplete', async (req, resp) => {
+    try {
+        const markTask = req.body;
+        console.log(markTask);
+        const update = await Task.findOneAndUpdate(markTask, { isCompleted: 'Completed' });
+        resp.status(200).send(update)
+
+    } catch (error) {
+        console.log("Error in Updaeing document!");
+
+    }
+});
+
+app.post('/api/task/editTask', async (req, res) => {
+    try {
+        const updatedTask = req.body;
+
+        const task = await Task.findOneAndUpdate(
+            { id: updatedTask.id }, // Assuming you are using 'id' as the identifier
+            updatedTask,
+        );
+        if (!task) {
+            return res.status(404).send("Task not found");
+        }
+
+        res.status(200).json(task);
+    } catch (error) {
+        console.log("Error in updating document!", error);
+        res.status(500).send("Internal Server Error");
+    }
+});
+
+app.post('/api/task/login', async (req, res) => {
+    const { email, password } = req.body;
+    console.log(email, password, "Email-password");
+
+    try {
+        const user = await User.findOne({ email: email });
+        console.log(user, "Userr");
+
+        if (!user) {
+            return res.status(400).send('User not found');
+        }
+        if (password !== user.password) {
+            return res.status(400).send('Invalid credentials');
+        }
+        res.status(200).send(user);
+    } catch (err) {
+        console.error("Error during login:", err);
+        res.status(500).send('Server error');
+    }
+});
+
+app.post('/api/task/register', async (req, resp) => {
+    try {
+        const newUser = req.body;
+        // Check if user already exists
+        const existingUser = await User.findOne({ email: newUser.email });
+        if (existingUser) {
+            console.log("User already exists");
+            return resp.status(400).send('User already exists');
+        }
+        const user = new User(newUser);
+        await user.save();
+        resp.status(201).json(user);
+    } catch (err) {
+        console.error("Error during user registration:", err);
+        resp.status(500).send('Server error');
+    }
+});
+
+
+app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
+});

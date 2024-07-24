@@ -1,0 +1,29 @@
+<header>
+  <div class="container">
+    <a routerLink="/" class="logo">TASK TRACKER</a>
+    <nav>
+      <ul>
+        <!-- Show login link only when the user is not logged in -->
+        <li *ngIf="!user">
+          <a routerLink="/login-page">Login</a>
+        </li>
+        
+        <!-- Show username and menu when user is logged in -->
+        <li *ngIf="user" class="menu-container">
+          <a routerLink="/dashboard">{{ user.name }}</a>
+          <div class="menu">
+            <a routerLink="/profile">Profile</a>
+            <a routerLink="/orders">Orders</a>
+            <a routerLink="/login-page" (click)="onLogout()">Logout</a>
+          </div>
+        </li>
+        
+        <li>
+          <a routerLink="/cart-page">
+            Tasks <span>{{tasks.length}}</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>

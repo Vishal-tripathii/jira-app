@@ -1,0 +1,23 @@
+<div class="container">
+    <form [formGroup]="createForm" (ngSubmit)="submit()">
+        <label for="name">
+            Name:
+            <input type="text" id="name" placeholder="Enter task name" formControlName="name">
+        </label>
+        <label for="description">
+            Description:
+            <textarea id="description" placeholder="Enter task description" formControlName="description"></textarea>
+        </label>
+        <label for="priority">
+            Priority:
+            <select id="priority" formControlName="priority">
+                <option *ngFor="let priority of priorityValues" [value]="priority">{{ priority }}</option>
+            </select>
+        </label>
+        <div class="action-container">
+            <button type="submit" [disabled]="!createForm.dirty || !createForm.valid" class="submit-btn">Create
+                Task</button>
+            <button type="button" (click)="cancel()" class="cancel-btn">Cancel</button>
+        </div>
+    </form>
+</div>

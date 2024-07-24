@@ -1,0 +1,23 @@
+<div class="container">
+    <form [formGroup]="editForm" (ngSubmit)="submit()">
+        <label for="name">
+            Name:
+            <input type="text" id="name" placeholder="yes" formControlName="name">
+        </label>
+        <label for="description">
+            Description:
+            <textarea id="description" placeholder="yes" formControlName="description"></textarea>
+        </label>
+        <label for="priority">
+            Priority:
+            <select id="priority" formControlName="priority">
+                <option *ngFor="let priority of priorityValues" [value]="priority">{{ priority }}</option>
+            </select>
+        </label>
+        <div class="action-container">
+            <button type="submit" [disabled]="!editForm.dirty || !editForm.valid" class="submit-btn">Submit</button>
+            <button (click)="cancel()">Close</button>
+        </div>
+
+    </form>
+</div>

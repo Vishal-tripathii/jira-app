@@ -1,0 +1,19 @@
+<div *ngIf="task" class="task-page">
+  <h1 class="task-name">Name: {{ task.name }}</h1>
+  <div class="task-details">
+    <p><strong>Description:</strong> {{ task.description }}</p>
+    <p><strong>Priority:</strong> {{ task.priority }}</p>
+    <p><strong>Created:</strong> {{ getDate() }}</p>
+    <p *ngIf="task.dateModified"><strong>Modified:</strong> {{ getModifiedDate() }}</p>
+
+    <p><strong>Status:</strong>
+      <span [ngClass]="{'complete': isCompleted() === 'Completed', 'incomplete' : isCompleted() === 'Incomplete' }">
+        {{ isCompleted() }}</span>
+    </p>
+    <div class="action-container">
+      <button class="delete-button" (click)="deleteTask(task.id)">Delete Task</button>
+      <button (click)="completeTask()">Mark as Complete</button>
+      <button (click)="openDialog()">Edit</button>
+    </div>
+  </div>
+</div>

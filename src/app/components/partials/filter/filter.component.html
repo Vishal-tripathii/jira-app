@@ -1,0 +1,6 @@
+<div>
+  <a *ngFor="let items of criteria" routerLinkActive="active" (click)="goto(items)"
+    [ngClass]="{ 'selected-tag': selectedCriteria === items }">
+    {{ items}}
+  </a>
+</div>
