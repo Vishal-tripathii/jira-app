@@ -5,3 +5,12 @@ task #1
 -change the sample data as well
 -user may have the following information: 
  -name, assigned manager, assigned team(names of teams //None for now), assigned role(could be employee, manager, admin, // employee for now), assigned tasks
+-----------------------------------------------------------------
+-updated sample_data
+-creatd new schema for task
+-created getAll() api for admin data
+-created admin-page
+-created admin-task-card-component
+-added admin service to handle admin level tasks
+-adding tasks to localstrogare as well
+-added urls as well

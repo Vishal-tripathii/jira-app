@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../../services/user.service';
+import { Roles } from '../../../shared/constants/roles';
 
 @Component({
   selector: 'app-login-page',
@@ -14,7 +15,7 @@ export class LoginPageComponent implements OnInit {
   isSubmitted = false;
   returnURL = ''
 
-  constructor(private _fb: FormBuilder, private _activatedRoute: ActivatedRoute, private _userService: UserService, private _router: Router) {}
+  constructor(private _fb: FormBuilder, private _activatedRoute: ActivatedRoute, private _userService: UserService, private _router: Router) { }
 
   ngOnInit(): void {
     this.loginForm = this._fb.group({
@@ -31,10 +32,10 @@ export class LoginPageComponent implements OnInit {
 
   submit() {
     this.isSubmitted = true;
-    if(this.loginForm.invalid) return;
+    if (this.loginForm.invalid) return;
 
-    this._userService.login({email: this.fc.email.value, password: this.fc.password.value}).subscribe((resp: any) => {
-      this._router.navigate([''])
+    this._userService.login({ email: this.fc.email.value, password: this.fc.password.value }).subscribe((resp: any) => {
+      resp.role === Roles.ADMIN ? this._router.navigate(['/admin-page']) : this._router.navigate([''])
     })
 
 

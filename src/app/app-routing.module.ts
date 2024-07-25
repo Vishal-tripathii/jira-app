@@ -4,6 +4,7 @@ import { HomeComponent } from './components/pages/home/home.component';
 import { TaskPageComponent } from './components/pages/task-page/task-page.component';
 import { LoginPageComponent } from './components/pages/login-page/login-page.component';
 import { RegisterPageComponent } from './components/partials/register-page/register-page.component';
+import { AdminPageComponent } from './components/pages/admin-page/admin-page.component';
 
 const routes: Routes = [
   {
@@ -29,6 +30,10 @@ const routes: Routes = [
   {
     path: 'register-page',
     component: RegisterPageComponent
+  },
+  {
+    path: 'admin-page',
+    component: AdminPageComponent
   }
 ];
 

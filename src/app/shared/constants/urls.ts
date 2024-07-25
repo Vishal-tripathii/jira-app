@@ -10,6 +10,7 @@ export const TASK_REGISTER_URL = TASK_URL + "/register"
 const JIRA_BASE =  BASE_URL + "/api/jira";
 export const JIRA_LOGIN_URL = JIRA_BASE + "/login";
 export const JIRA_REGISTER_URL = JIRA_BASE + "/register"
+export const JIRA_TASK_URL = JIRA_BASE + "/";
 
 
 

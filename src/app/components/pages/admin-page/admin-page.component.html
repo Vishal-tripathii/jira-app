@@ -1,0 +1,10 @@
+<div class="tasks-container">
+    <div *ngFor="let item of task" class="task-item">
+        <a>
+            <app-admin-task-card [task]="item"></app-admin-task-card>
+        </a>
+    </div>
+</div>
+<button>
+    <mat-icon>note_add</mat-icon>
+</button>

@@ -22,7 +22,7 @@ const mongoURI = process.env.MONGO_URI;
 mongoose.connect(mongoURI!)
     .then(() => {
         console.log("Connected to MongoDB");
-        // initializeDatabase();
+        initializeDatabase();
         initilizeUser();
     })
     .catch(err => {
@@ -39,6 +39,16 @@ const TaskSchema = new mongoose.Schema({
     isCompleted: { type: String }
 });
 
+const jiraTaskSchema = new mongoose.Schema({
+    name: { type: String, required: true },
+    taskName: { type: String, required: true },
+    description: { type: String, required: true },
+    priority: { type: String, required: true },
+    dateCreated: { type: Date, default: Date.now },
+    dateModified: { type: Date, default: null },
+    status: { type: String } 
+})
+
 const UserSchema = new mongoose.Schema({
     role: {type: String, required: true},
     name: { type: String, required: true },
@@ -47,15 +57,16 @@ const UserSchema = new mongoose.Schema({
 })
 
 const Task = mongoose.model('Task', TaskSchema);
-const User = mongoose.model('User', UserSchema)
+const User = mongoose.model('User', UserSchema);
+const JiraTask = mongoose.model('JiraTask', jiraTaskSchema)
 
 async function initializeDatabase() {
     try {
         // Check if the collection is empty
-        const count = await Task.countDocuments();
+        const count = await JiraTask.countDocuments();
         if (count === 0) {
             console.log('Inserting sample tasks...');
-            await Task.insertMany(sample_tasks);
+            await JiraTask.insertMany(sample_tasks);
             console.log('Sample tasks inserted');
         }
     } catch (err) {
@@ -260,9 +271,14 @@ app.post('/api/jira/register', async (req, resp) => {
     }
 });
 
-
-
-
+app.get("/api/jira", async(req, resp) => {
+    try {
+        const task = await JiraTask.find();
+        resp.status(200).json(task)
+    } catch (error) {
+        resp.status(500).send("errror fetching Admin-Data")
+    }
+});
 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);

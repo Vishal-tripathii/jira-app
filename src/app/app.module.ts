@@ -20,7 +20,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { LoginPageComponent } from './components/pages/login-page/login-page.component';
 import { RegisterPageComponent } from './components/partials/register-page/register-page.component';
 import { NotFoundComponent } from './components/partials/not-found/not-found.component';
-
+import { AdminPageComponent } from './components/pages/admin-page/admin-page.component';
+import { MatCardModule } from '@angular/material/card';
+import { AdminTaskCardComponent } from './components/partials/admin-task-card/admin-task-card.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,7 +36,10 @@ import { NotFoundComponent } from './components/partials/not-found/not-found.com
     CreateTaskComponent,
     LoginPageComponent,
     RegisterPageComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    AdminPageComponent,
+    AdminTaskCardComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -43,7 +48,8 @@ import { NotFoundComponent } from './components/partials/not-found/not-found.com
     ReactiveFormsModule,
     MatButtonModule,
     MatIconModule,
-    HttpClientModule
+    HttpClientModule,
+    MatCardModule
   ],
   providers: [
     provideAnimationsAsync()

@@ -1,8 +1,13 @@
 <div class="container">
     <form [formGroup]="createForm" (ngSubmit)="submit()">
         <label for="name">
-            Name:
-            <input type="text" id="name" placeholder="Enter task name" formControlName="name">
+            Assigning task for:
+            <input type="text" id="name" placeholder="Enter task name" formControlName="name" [disabled]="true">
+
+        </label>
+        <label for="name">
+            taskName:
+            <input type="text" id="name" placeholder="Enter task name" formControlName="taskName">
         </label>
         <label for="description">
             Description:

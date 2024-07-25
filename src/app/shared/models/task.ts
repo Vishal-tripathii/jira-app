@@ -1,4 +1,5 @@
 import { Priority } from "./priority";
+import { Status } from "./status";
 
 export class Task {
     id!: string;
@@ -8,4 +9,15 @@ export class Task {
     description!: string;
     priority!: Priority;
     isCompleted!: string;
+}
+
+export class JiraTask {
+    id!: string;
+    dateCreated!: Date;
+    dateModified!: Date | null;
+    name!: string;
+    taskName!: string;
+    description!: string;
+    priority!: Priority;
+    status!: Status;
 }

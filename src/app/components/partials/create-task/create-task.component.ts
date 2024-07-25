@@ -4,6 +4,7 @@ import { Priority } from '../../../shared/models/priority';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { INCOMPLETE } from '../../../shared/constants/completed-status';
 import { UserService } from '../../../services/user.service';
+import { Status } from '../../../shared/models/status';
 
 @Component({
   selector: 'app-create-task',
@@ -20,17 +21,14 @@ export class CreateTaskComponent implements OnInit {
     let currentUser = this._userService.getCurrentUser();
     this.createForm = this._fb.group({
       id: [currentUser?._id],
-      name: ['', [Validators.required]],
+      name: [{ value: currentUser?.name, disabled: true }, Validators.required],
+      taskName: ['', [Validators.required]],
       description: ['', [Validators.required]],
       priority: [this.priorityValues],
-      isCompleted: [INCOMPLETE],
+      status: [Status.ASSIGNED],
       dateCreated: [new Date()],
       modifiedDate: [null]
     });
-  }
-
-  generateId() {
-    return Math.floor(1000 + Math.random() * 9000).toString(); // we need id's in string format
   }
 
   submit() {
