@@ -22,7 +22,7 @@ const mongoURI = process.env.MONGO_URI;
 mongoose.connect(mongoURI!)
     .then(() => {
         console.log("Connected to MongoDB");
-        initializeDatabase();
+        // initializeDatabase();
         initilizeUser();
     })
     .catch(err => {
@@ -220,6 +220,48 @@ app.post('/api/task/register', async (req, resp) => {
         resp.status(500).send('Server error');
     }
 });
+
+
+// ---------------------------------JIRA PART-------------------------------------------------------
+
+app.post('/api/jira/login', async(req, resp) => {
+    const { email, password } = req.body;
+    try {
+        const user = await User.findOne({ email: email });
+        console.log(user, "Userr");
+
+        if (!user) {
+            return resp.status(400).send('User not found');
+        }
+        if (password !== user.password) {
+            return resp.status(400).send('Invalid credentials');
+        }
+        resp.status(200).send(user);
+    } catch (err) {
+        console.error("Error during login:", err);
+        resp.status(500).send('Server error');
+    }
+});
+
+app.post('/api/jira/register', async (req, resp) => {
+    try {
+        const newUser = req.body;
+        // Check if user already exists
+        const existingUser = await User.findOne({ email: newUser.email });
+        if (existingUser) {
+            return resp.status(400).send('User already exists');
+        }
+        const user = new User(newUser);
+        await user.save();
+        resp.status(201).json(user);
+    } catch (err) {
+        console.error("Error during user registration:", err);
+        resp.status(500).send('Server error');
+    }
+});
+
+
+
 
 
 app.listen(PORT, () => {

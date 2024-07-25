@@ -1,30 +1,30 @@
 export const sample_tasks: any[] = [
   {
-    id: '1',
     dateCreated: new Date('2023-01-01'),
+    dateModified: null,
     name: 'Task 1',
+    taskName: 'This is task 1',
     description: 'Description for Task 1',
     priority: 'HIGH',
-    isCompleted: 'Incomplete',
-    dateModified: null
+    status: 'assigned',
   },
   {
-    id: '2',
-    dateCreated: new Date('2023-02-01'),
-    name: 'Task 2',
-    description: 'Description for Task 2',
-    priority: 'MEDIUM',
-    isCompleted: 'Completed',
-    dateModified: null
+    dateCreated: new Date('2023-01-01'),
+    dateModified: null,
+    name: 'Task 1',
+    taskName: 'This is task 1',
+    description: 'Description for Task 1',
+    priority: 'HIGH',
+    status: 'in-progress',
   },
   {
-    id: '3',
-    dateCreated: new Date('2023-03-01'),
-    name: 'Task 3',
-    description: 'Description for Task 3',
-    priority: 'LOW',
-    isCompleted: 'Incomplete',
-    dateModified: null
+    dateCreated: new Date('2023-01-01'),
+    dateModified: null,
+    name: 'Task 1',
+    taskName: 'This is task 1',
+    description: 'Description for Task 1',
+    priority: 'HIGH',
+    status: 'completed',
   },
   // {
   //   id: '4',
@@ -60,6 +60,6 @@ export const sample_user: any[] = [
       name: "John Doe",
       email: "john@gmail.com",
       password: "12345",
-      role: 'ROLA'
+      role: 'ADMIN'
   }
 ]

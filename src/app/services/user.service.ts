@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { IUserLogin } from '../shared/interfaces/IUserLogin';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../shared/models/user';
-import { TASK_LOGIN_URL, TASK_REGISTER_URL } from '../shared/constants/urls';
+import { JIRA_LOGIN_URL, JIRA_REGISTER_URL } from '../shared/constants/urls';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { IUserRegister } from '../shared/interfaces/IUserRegister';
 
@@ -24,7 +24,7 @@ export class UserService {
   }
 
   login(userLogin: IUserLogin): Observable<User> {
-    return this._http.post<User>(TASK_LOGIN_URL, userLogin).pipe(
+    return this._http.post<User>(JIRA_LOGIN_URL, userLogin).pipe(
       tap({
         next: (user) => {
           console.log("Successful login", user);
@@ -45,7 +45,7 @@ export class UserService {
   }
 
   register(registerUser: IUserRegister): Observable<IUserRegister> {
-    return this._http.post<IUserRegister>(TASK_REGISTER_URL, registerUser).pipe(
+    return this._http.post<IUserRegister>(JIRA_REGISTER_URL, registerUser).pipe(
       tap({
         next: (user) => {
           console.log("Successful login", user);

@@ -4,6 +4,12 @@ export const TASK_DELETE_URL = TASK_URL + '/'
 export const TASK_NEW_URL = TASK_URL + '/addNewTask'
 export const TASK_COMPLETED_URL = TASK_URL + '/markAsComplete'
 export const TASK_EDIT_URL = TASK_URL + "/editTask"
-
 export const TASK_LOGIN_URL = TASK_URL + "/login"
 export const TASK_REGISTER_URL = TASK_URL + "/register"
+
+const JIRA_BASE =  BASE_URL + "/api/jira";
+export const JIRA_LOGIN_URL = JIRA_BASE + "/login";
+export const JIRA_REGISTER_URL = JIRA_BASE + "/register"
+
+
+
