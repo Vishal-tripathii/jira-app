@@ -20,19 +20,19 @@ export class TaskService {
 
   getAllTasks(userId: string): Observable<JiraTask[]> {
     // if (this.tasks.length === 0) {
-      console.log("fetching from api ->");
-      return this._http.get<JiraTask[]>(`${TASK_URL}?userId=${userId}`).pipe(
-        tap({
-          next: (task) => {
-            this.tasks = task;
-            this.myTasks.next(this.tasks)
-            this.setTaskToLocalStorage(this.tasks)
-          },
-          error: (errorReponse) => {
-            console.log(errorReponse, "Error in Fetching data");
-          }
-        })
-      )
+    console.log("fetching from api ->");
+    return this._http.get<JiraTask[]>(`${TASK_URL}?userId=${userId}`).pipe(
+      tap({
+        next: (task) => {
+          this.tasks = task;
+          this.myTasks.next(this.tasks)
+          this.setTaskToLocalStorage(this.tasks)
+        },
+        error: (errorReponse) => {
+          console.log(errorReponse, "Error in Fetching data");
+        }
+      })
+    )
     // }
     // else {
     //   console.log("fetching from localStorage ->");
@@ -64,15 +64,16 @@ export class TaskService {
     })
   }
 
-  filterTaskByCompletionCriteria(criteria: string) {
+  filterTaskByStatusCriteria(status: string) {
     // return of(criteria === 'All' ? this.tasks : this.tasks.filter(item => item.isCompleted === criteria))
+    return of(this.tasks.filter(item => item.status === status))
   }
 
   updateTask(task: any) {
     this._http.post<Task>(TASK_EDIT_URL, task).subscribe((resp: any) => {
       const t1 = resp;
       console.log(resp, "In servicee");
-      
+
     })
     const tasks = this.tasks;
     const index = tasks.findIndex(item => item.id === task.id);
@@ -87,7 +88,7 @@ export class TaskService {
 
   markAsComplete(task: any) {
     console.log(task, "from sevice");
-    
+
     this._http.post(TASK_COMPLETED_URL, task).subscribe((resp: any) => {
       const currentTask = this.tasks
       const index = currentTask.findIndex(item => item.id === task.id);

@@ -16,6 +16,7 @@ export class AdminPageComponent implements OnInit {
 
   task: JiraTask[] = [];
   searchTerm: string = '';
+  statusTerm: string = ''
 
   constructor(private _adminService: AdminService,
     public dialogRef: MatDialog,
@@ -25,6 +26,10 @@ export class AdminPageComponent implements OnInit {
       if (params.searchTerm) {
         this.searchTerm = params.searchTerm;
         taskObservable = this._adminService.getTasksBySearchTerm(params.searchTerm);
+      }
+      else if (params.statusTerm) {
+        this.statusTerm = params.statusTerm
+        taskObservable = this._adminService.getTasksByStatus(params.statusTerm)
       }
       else {
         taskObservable = this._adminService.getAllTasks()

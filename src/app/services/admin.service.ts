@@ -20,7 +20,6 @@ export class AdminService {
     return this._http.get<JiraTask[]>(JIRA_TASK_URL).pipe(
       tap({
         next: (task) => {
-          console.log(task, "AdminTasks");
           this.tasks = task;
           this.myTasks.next(this.tasks)
           this.setTaskToLocalStorage(this.tasks)
@@ -113,6 +112,10 @@ export class AdminService {
 
   getTasksBySearchTerm(searchTerm: string) {
     return of(this.tasks.filter(item => item.taskName.toLowerCase().includes(searchTerm.toLowerCase())))
+  }
+
+  getTasksByStatus(taskStatus: string) {
+    return of(this.tasks.filter(item => item.status === taskStatus))
   }
 
   private setTaskToLocalStorage(tasks: JiraTask[]): void {

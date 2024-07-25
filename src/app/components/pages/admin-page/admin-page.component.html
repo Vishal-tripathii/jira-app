@@ -1,4 +1,5 @@
 <app-search [searchTerm]="searchTerm" searchRoute="admin-page/search"></app-search>
+<app-status-filter [statusTerm]="statusTerm" statusRoute="admin-page/status"></app-status-filter>
 <div class="tasks-container">
     <div *ngFor="let item of task" class="task-item">
         <a>

@@ -1,0 +1,6 @@
+<div>
+    <a *ngFor="let items of statusValues" routerLinkActive="active" (click)="goto(items)"
+        [ngClass]="{ 'selected-tag': selectedStatus === items }">
+        {{ items}}
+    </a>
+</div>

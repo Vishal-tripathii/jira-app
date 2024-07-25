@@ -20,7 +20,7 @@ const routes: Routes = [
     component: TaskPageComponent
   },
   {
-    path: 'tag/:tag',
+    path: 'status/:statusTerm',
     component: HomeComponent
   },
   {
@@ -37,6 +37,10 @@ const routes: Routes = [
   },
   {
     path: 'admin-page/search/:searchTerm',
+    component: AdminPageComponent
+  },
+  {
+    path: 'admin-page/status/:statusTerm',
     component: AdminPageComponent
   }
 ];

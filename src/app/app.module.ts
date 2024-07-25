@@ -23,6 +23,7 @@ import { NotFoundComponent } from './components/partials/not-found/not-found.com
 import { AdminPageComponent } from './components/pages/admin-page/admin-page.component';
 import { MatCardModule } from '@angular/material/card';
 import { AdminTaskCardComponent } from './components/partials/admin-task-card/admin-task-card.component';
+import { StatusFilterComponent } from './components/partials/status-filter/status-filter.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,6 +40,7 @@ import { AdminTaskCardComponent } from './components/partials/admin-task-card/ad
     NotFoundComponent,
     AdminPageComponent,
     AdminTaskCardComponent,
+    StatusFilterComponent,
     
   ],
   imports: [
