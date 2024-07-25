@@ -34,6 +34,10 @@ const routes: Routes = [
   {
     path: 'admin-page',
     component: AdminPageComponent
+  },
+  {
+    path: 'admin-page/search/:searchTerm',
+    component: AdminPageComponent
   }
 ];
 

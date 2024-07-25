@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateTaskComponent } from '../../partials/create-task/create-task.component';
 import { Roles } from '../../../shared/constants/roles';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-page',
@@ -14,14 +15,23 @@ import { Roles } from '../../../shared/constants/roles';
 export class AdminPageComponent implements OnInit {
 
   task: JiraTask[] = [];
+  searchTerm: string = '';
 
-  constructor(private _adminService: AdminService, public dialogRef: MatDialog) {
+  constructor(private _adminService: AdminService,
+    public dialogRef: MatDialog,
+    private _activatedRoute: ActivatedRoute) {
     let taskObservable: Observable<JiraTask[]>
-    taskObservable = this._adminService.getAllTasks()
-
-    taskObservable.subscribe((serverResponse: any) => {
-      this.task = serverResponse;
-      console.log(this.task, "these are admin-data");
+    this._activatedRoute.params.subscribe((params: any) => {
+      if (params.searchTerm) {
+        this.searchTerm = params.searchTerm;
+        taskObservable = this._adminService.getTasksBySearchTerm(params.searchTerm);
+      }
+      else {
+        taskObservable = this._adminService.getAllTasks()
+      }
+      taskObservable.subscribe((serverResponse: any) => {
+        this.task = serverResponse;
+      })
     })
   }
 

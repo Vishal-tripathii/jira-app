@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { sample_tasks } from '../../data';
-import { Task } from '../shared/models/task';
+import { JiraTask, Task } from '../shared/models/task';
 import { COMPLETED } from '../shared/constants/completed-status';
 import { HttpClient } from '@angular/common/http';
 import { TASK_COMPLETED_URL, TASK_DELETE_URL, TASK_EDIT_URL, TASK_NEW_URL, TASK_URL } from '../shared/constants/urls';
@@ -10,18 +10,18 @@ import { BehaviorSubject, Observable, of, Subject, tap } from 'rxjs';
   providedIn: 'root'
 })
 export class TaskService {
-  private tasks: Task[] = [];
-  myTasks = new Subject<Task[]>();
+  private tasks: JiraTask[] = [];
+  myTasks = new Subject<JiraTask[]>();
 
   constructor(private _http: HttpClient) {
     this.tasks = this.getTasksFromLocalStorage();
   }
 
 
-  getAllTasks(userId: string): Observable<Task[]> {
+  getAllTasks(userId: string): Observable<JiraTask[]> {
     // if (this.tasks.length === 0) {
       console.log("fetching from api ->");
-      return this._http.get<Task[]>(`${TASK_URL}?userId=${userId}`).pipe(
+      return this._http.get<JiraTask[]>(`${TASK_URL}?userId=${userId}`).pipe(
         tap({
           next: (task) => {
             this.tasks = task;
@@ -42,7 +42,7 @@ export class TaskService {
   }
 
   getAlltasksBySearchTerm(searchTerm: string) {
-    return of(this.tasks.filter(item => item.name.toLowerCase().includes(searchTerm.toLowerCase())))
+    return of(this.tasks.filter(item => item.taskName.toLowerCase().includes(searchTerm.toLowerCase())))
   }
 
   getTaskById(id: string): Observable<any> {
@@ -65,7 +65,7 @@ export class TaskService {
   }
 
   filterTaskByCompletionCriteria(criteria: string) {
-    return of(criteria === 'All' ? this.tasks : this.tasks.filter(item => item.isCompleted === criteria))
+    // return of(criteria === 'All' ? this.tasks : this.tasks.filter(item => item.isCompleted === criteria))
   }
 
   updateTask(task: any) {
@@ -92,7 +92,7 @@ export class TaskService {
       const currentTask = this.tasks
       const index = currentTask.findIndex(item => item.id === task.id);
       if (index !== -1) {
-        currentTask[index].isCompleted = COMPLETED
+        // currentTask[index].isCompleted = COMPLETED
         this.setTaskToLocalStorage(currentTask)
       }
     })
@@ -100,8 +100,8 @@ export class TaskService {
 
   createNewTask(newTask: Task): void {
     console.log(newTask);
-    this._http.post<Task>(TASK_NEW_URL, newTask).subscribe({
-      next: (resp: Task) => {
+    this._http.post<JiraTask>(TASK_NEW_URL, newTask).subscribe({
+      next: (resp: JiraTask) => {
         this.tasks.push(resp);
         this.setTaskToLocalStorage(this.tasks);
       },
@@ -111,11 +111,11 @@ export class TaskService {
     });
   }
 
-  private setTaskToLocalStorage(tasks: Task[]): void {
+  private setTaskToLocalStorage(tasks: JiraTask[]): void {
     localStorage.setItem('tasks', JSON.stringify(tasks));
   }
 
-  private getTasksFromLocalStorage(): Task[] {
+  private getTasksFromLocalStorage(): JiraTask[] {
     const tasks = localStorage.getItem('tasks');
     return tasks ? JSON.parse(tasks) : [];
   }

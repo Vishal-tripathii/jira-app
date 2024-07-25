@@ -18,6 +18,7 @@ export class HomeComponent implements OnInit {
 
   task: JiraTask[] = [];
   notFound!: boolean;
+  searchTerm: string = ''
 
   constructor(private _taskService: TaskService, private _activatedRoutes: ActivatedRoute, private _router: Router, public dialogRef: MatDialog, private _userService: UserService, private _adminService: AdminService) {
     let currentUser = this._userService.getCurrentUser();
@@ -29,11 +30,12 @@ export class HomeComponent implements OnInit {
     let taskObservable: Observable<JiraTask[]>
     _activatedRoutes.params.subscribe((params: any) => {
       if (params.searchTerm) {
-        // taskObservable = this._taskService.getAlltasksBySearchTerm(params.searchTerm)
+      this.searchTerm = params.searchTerm;
+      taskObservable = this._taskService.getAlltasksBySearchTerm(params.searchTerm)
       }
-      else if (params.tag) {
-        // taskObservable = _taskService.filterTaskByCompletionCriteria(params.tag)
-      }
+      // else if (params.tag) {
+      //   taskObservable = _taskService.filterTaskByCompletionCriteria(params.tag)
+      // }
       else {
         taskObservable = this._adminService.getUserTasks(currentUser?._id!);
       }
@@ -44,7 +46,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+      
   }
 
   goto(id: string) {

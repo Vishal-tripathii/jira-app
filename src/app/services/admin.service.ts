@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject, tap } from 'rxjs';
+import { Observable, of, Subject, tap } from 'rxjs';
 import { JiraTask } from '../shared/models/task';
 import { HttpClient } from '@angular/common/http';
 import { JIRA_ADD_TASK_URL, JIRA_DELETE_URL, JIRA_EDIT_USER_TASK, JIRA_GET_USER_DATA_URL, JIRA_LOGIN_URL, JIRA_TASK_URL } from '../shared/constants/urls';
@@ -109,6 +109,10 @@ export class AdminService {
       }
     });
     return uniqueUsers;
+  }
+
+  getTasksBySearchTerm(searchTerm: string) {
+    return of(this.tasks.filter(item => item.taskName.toLowerCase().includes(searchTerm.toLowerCase())))
   }
 
   private setTaskToLocalStorage(tasks: JiraTask[]): void {
