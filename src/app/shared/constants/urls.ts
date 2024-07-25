@@ -13,5 +13,7 @@ export const JIRA_REGISTER_URL = JIRA_BASE + "/register"
 export const JIRA_TASK_URL = JIRA_BASE + "/";
 export const JIRA_ADD_TASK_URL = JIRA_BASE + "/addNewTask"
 export const JIRA_GET_USER_DATA_URL = JIRA_BASE + "/getUserData"
+export const JIRA_DELETE_URL = JIRA_BASE + "/"
+export const JIRA_EDIT_USER_TASK = JIRA_BASE + "/editTask"
 
 

@@ -22,12 +22,12 @@ export class TaskFormComponent implements OnInit {
   ngOnInit(): void {
     // in this form i need to pre-fill the data, so i need to catch the data and fill it beforehand
     this.editForm = this._fb.group({
-      name: [this.currentTask.name, [Validators.required]],
+      name: [this.currentTask.taskName, [Validators.required]],
       description: [this.currentTask.description, [Validators.required]],
       priority: [this.currentTask.priority, [Validators.required]],
       id: [this.currentTask.id],
       dateCreated: [this.currentTask.dateCreated],
-      dateModified: [null], 
+      dateModified: [null],
       isCompleted: [this.currentTask.isCompleted],
 
     });

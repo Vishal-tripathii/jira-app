@@ -5,6 +5,7 @@ import { Task } from '../../../shared/models/task';
 import { MatDialog } from '@angular/material/dialog';
 import { TaskFormComponent } from '../../partials/task-form/task-form.component';
 import { Observable } from 'rxjs';
+import { AdminService } from '../../../services/admin.service';
 
 @Component({
   selector: 'app-task-page',
@@ -16,8 +17,8 @@ export class TaskPageComponent implements OnInit {
   task!: Task | undefined;
   updateTask!: any;
 
-  constructor(private _taskService: TaskService, private _activatedRoutes: ActivatedRoute, private _router: Router, public dialogRef: MatDialog) {
-    let taskObservable:  Observable<Task>
+  constructor(private _taskService: TaskService, private _activatedRoutes: ActivatedRoute, private _router: Router, public dialogRef: MatDialog, private _adminService: AdminService) {
+    let taskObservable: Observable<Task>
     this._activatedRoutes.params.subscribe((params: any) => {
       if (params.id) {
         taskObservable = this._taskService.getTaskById(params.id)
@@ -52,13 +53,13 @@ export class TaskPageComponent implements OnInit {
       const date = formatDate.getDate();
       const month = formatDate.getMonth() + 1;
       const year = formatDate.getFullYear();
-      return `${date}-${month}-${year}` 
+      return `${date}-${month}-${year}`
     }
     return
   }
 
   deleteTask(id: string) {
-    this._taskService.removeTask(id);
+    this._adminService.removeTask(id);
     this._router.navigate(['']);
   }
 
@@ -69,7 +70,7 @@ export class TaskPageComponent implements OnInit {
     dialog.afterClosed().subscribe((resp: any) => { // recieving the data from the task-form component
       if (resp) {
         this.updateTask = resp.value
-        this._taskService.updateTask(this.updateTask); // updateing to localstorage from the service method
+        this._adminService.updateTask(this.updateTask); // updateing to localstorage from the service method
         this.task = this.updateTask // updating the task as soon as I close the dialog box
       }
     })
@@ -77,7 +78,7 @@ export class TaskPageComponent implements OnInit {
 
   completeTask() {
     console.log(this.task, "task-page");
-    
+
     this._taskService.markAsComplete(this.task)
   }
 }

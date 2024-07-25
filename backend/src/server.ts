@@ -300,6 +300,39 @@ app.get("/api/jira/getUserData", async (req, resp) => {
     } catch (error) {
         resp.status(500).send("error fetching user data")
     }
+});
+app.delete('/api/jira/:id', async (req, resp) => {
+    const taskId = req.params.id;
+    console.log(taskId, "this is taskId");
+
+    try {
+        const result = await JiraTask.deleteOne({ id: taskId })
+        if (result.deletedCount === 1) {
+            resp.status(200).send("Task Deleted Sucessfully")
+        }
+        else {
+            resp.status(500).send("Error Deleting Task")
+        }
+    } catch (error) {
+        resp.status(500).send({ message: 'Error deleting task' });
+    }
+
+});
+
+app.post("/api/jira/editTask", async (req, resp) => {
+    try {
+        const updatedTask = req.body;
+        const task = await JiraTask.findOneAndUpdate(
+            { id: updatedTask.id }, //using 'id' as the identifier
+            updatedTask,
+        );
+        if (!task) {
+            return resp.status(404).send("Task not found");
+        }
+        resp.status(200).json(task);
+    } catch (error) {
+        resp.status(500).send("Internal Server Error");
+    }
 })
 
 app.listen(PORT, () => {

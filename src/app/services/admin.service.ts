@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject, tap } from 'rxjs';
 import { JiraTask } from '../shared/models/task';
 import { HttpClient } from '@angular/common/http';
-import { JIRA_ADD_TASK_URL, JIRA_GET_USER_DATA_URL, JIRA_LOGIN_URL, JIRA_TASK_URL } from '../shared/constants/urls';
+import { JIRA_ADD_TASK_URL, JIRA_DELETE_URL, JIRA_EDIT_USER_TASK, JIRA_GET_USER_DATA_URL, JIRA_LOGIN_URL, JIRA_TASK_URL } from '../shared/constants/urls';
 
 @Injectable({
   providedIn: 'root'
@@ -71,6 +71,33 @@ export class AdminService {
     });
   }
 
+  removeTask(id: string): void {
+    this._http.delete(JIRA_DELETE_URL + id).subscribe({
+      next: () => {
+        const index = this.tasks.findIndex(task => task.id === id);
+        if (index !== -1) {
+          this.tasks.splice(index, 1);
+          this.setTaskToLocalStorage(this.tasks);
+        }
+      },
+      error: () => {
+        console.log("Error from service call");
+      }
+    })
+  }
+
+  updateTask(task: any) {
+    this._http.post<JiraTask>(JIRA_EDIT_USER_TASK, task).subscribe((resp: any) => {
+      const tasks = this.tasks;
+      const index = tasks.findIndex(item => item.id === task.id);
+      console.log(index, "indexx found??");
+
+      if (index !== -1) {
+        tasks[index] = task; // updating that index data completely
+        this.setTaskToLocalStorage(tasks);
+      }
+    })
+  }
   private setTaskToLocalStorage(tasks: JiraTask[]): void {
     localStorage.setItem('tasks', JSON.stringify(tasks));
   }
