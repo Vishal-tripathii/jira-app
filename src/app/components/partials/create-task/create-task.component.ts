@@ -15,13 +15,14 @@ export class CreateTaskComponent implements OnInit {
 
   createForm!: FormGroup;
   priorityValues = Object.values(Priority); // fetching the values of priority
+  currentUser!: any;
   constructor(private _fb: FormBuilder, public dialogRef: MatDialogRef<CreateTaskComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private _userService: UserService) { }
 
   ngOnInit(): void {
-    let currentUser = this._userService.getCurrentUser();
+    this.currentUser = this._userService.getCurrentUser();
     this.createForm = this._fb.group({
-      id: [currentUser?._id],
-      name: [{ value: currentUser?.name, disabled: true }, Validators.required],
+      id: [this.currentUser?._id],
+      name: [this.currentUser?.name],
       taskName: ['', [Validators.required]],
       description: ['', [Validators.required]],
       priority: [this.priorityValues],

@@ -40,17 +40,18 @@ const TaskSchema = new mongoose.Schema({
 });
 
 const jiraTaskSchema = new mongoose.Schema({
+    id: { type: String, required: true },
     name: { type: String, required: true },
     taskName: { type: String, required: true },
     description: { type: String, required: true },
     priority: { type: String, required: true },
     dateCreated: { type: Date, default: Date.now },
     dateModified: { type: Date, default: null },
-    status: { type: String } 
+    status: { type: String }
 })
 
 const UserSchema = new mongoose.Schema({
-    role: {type: String, required: true},
+    role: { type: String, required: true },
     name: { type: String, required: true },
     email: { type: String, required: true },
     password: { type: String, required: true }
@@ -235,7 +236,7 @@ app.post('/api/task/register', async (req, resp) => {
 
 // ---------------------------------JIRA PART-------------------------------------------------------
 
-app.post('/api/jira/login', async(req, resp) => {
+app.post('/api/jira/login', async (req, resp) => {
     const { email, password } = req.body;
     try {
         const user = await User.findOne({ email: email });
@@ -271,7 +272,7 @@ app.post('/api/jira/register', async (req, resp) => {
     }
 });
 
-app.get("/api/jira", async(req, resp) => {
+app.get("/api/jira", async (req, resp) => {
     try {
         const task = await JiraTask.find();
         resp.status(200).json(task)
@@ -279,6 +280,27 @@ app.get("/api/jira", async(req, resp) => {
         resp.status(500).send("errror fetching Admin-Data")
     }
 });
+
+app.post("/api/jira/addNewTask", async (req, resp) => {
+    try {
+        const newTask = req.body;
+        const task = new JiraTask(newTask);
+        await task.save();
+        resp.status(201).json(task);
+    } catch (err) {
+        resp.status(500).send(err);
+    }
+});
+
+app.get("/api/jira/getUserData", async (req, resp) => {
+    const { userId } = req.query;
+    try {
+        const task = await JiraTask.find({ id: userId });
+        resp.status(200).json(task)
+    } catch (error) {
+        resp.status(500).send("error fetching user data")
+    }
+})
 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
