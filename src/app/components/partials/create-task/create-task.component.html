@@ -1,6 +1,38 @@
-<div class="container">
+<div class="container" *ngIf="!adminTemplate()">
     <form [formGroup]="createForm" (ngSubmit)="submit()">
-        Assigning task for: <p>{{currentUser.name}}</p>
+        Assigning task for: <p>{{currentUser?.name}}</p>
+
+        <label for="name">
+            taskName:
+            <input type="text" id="name" placeholder="Enter task name" formControlName="taskName">
+        </label>
+        <label for="description">
+            Description:
+            <textarea id="description" placeholder="Enter task description" formControlName="description"></textarea>
+        </label>
+        <label for="priority">
+            Priority:
+            <select id="priority" formControlName="priority">
+                <option *ngFor="let priority of priorityValues" [value]="priority">{{ priority }}</option>
+            </select>
+        </label>
+        <div class="action-container">
+            <button type="submit" [disabled]="!createForm.dirty || !createForm.valid" class="submit-btn">Create
+                Task</button>
+            <button type="button" (click)="cancel()" class="cancel-btn">Cancel</button>
+        </div>
+    </form>
+</div>
+<div class="container" *ngIf="adminTemplate()">
+    <form [formGroup]="createForm" (ngSubmit)="submit()">
+        <label for="name">
+            Assigning task for:
+            <select id="name" formControlName="name">
+                <option *ngFor="let user of existingUsers" [value]="user.name">
+                    {{ user.name }} ({{ user.email }})
+                </option>
+            </select>
+        </label>
 
         <label for="name">
             taskName:

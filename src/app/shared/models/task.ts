@@ -12,6 +12,7 @@ export class Task {
 }
 
 export class JiraTask {
+    email!: string;
     id!: string;
     dateCreated!: Date;
     dateModified!: Date | null;

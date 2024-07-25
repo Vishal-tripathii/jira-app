@@ -98,6 +98,19 @@ export class AdminService {
       }
     })
   }
+
+  getExistingUserDetailsByEmail() {
+    const uniqueUsers: { name: string; email: string, id: string }[] = [];
+    const emails: Set<string> = new Set();
+    this.tasks.forEach(item => {
+      if (!emails.has(item.email)) {
+        emails.add(item.email);
+        uniqueUsers.push({ name: item.name, email: item.email, id: item.id });
+      }
+    });
+    return uniqueUsers;
+  }
+
   private setTaskToLocalStorage(tasks: JiraTask[]): void {
     localStorage.setItem('tasks', JSON.stringify(tasks));
   }

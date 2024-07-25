@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Task } from '../../../shared/models/task';
+import { JiraTask, Task } from '../../../shared/models/task';
 
 @Component({
   selector: 'app-task-card',
@@ -8,7 +8,7 @@ import { Task } from '../../../shared/models/task';
 })
 export class TaskCardComponent implements OnInit {
 
-  @Input() task!: Task;
+  @Input() task!: JiraTask;
   dateCreated!: Date;
   dateModified!: Date | null;
 
@@ -32,8 +32,5 @@ export class TaskCardComponent implements OnInit {
     return `${date}-${month + 1}-${year}`
   }
 
-  isCompleted() {
-    return this.task.isCompleted;
-  }
 
 }

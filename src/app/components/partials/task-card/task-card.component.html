@@ -1,7 +1,7 @@
 <div class="container">
     <div class="header">
         <div class="header-content">
-            <div class="title">{{task.name}}</div>
+            <div class="title">{{task.taskName}}</div>
             <div class="date">{{getDate()}}</div>
         </div>
     </div>
@@ -11,9 +11,5 @@
     <div class="footer">
         <div class="footer-content">
             <div class="priority">{{task.priority}}</div>
-            <div
-                [ngClass]="{'complete': isCompleted() === 'Completed', 'incomplete' : isCompleted() === 'Incomplete' }">
-                {{ isCompleted() }}</div>
         </div>
     </div>
-</div>

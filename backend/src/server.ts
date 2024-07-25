@@ -40,6 +40,7 @@ const TaskSchema = new mongoose.Schema({
 });
 
 const jiraTaskSchema = new mongoose.Schema({
+    email: {type: String, required: true},
     id: { type: String, required: true },
     name: { type: String, required: true },
     taskName: { type: String, required: true },

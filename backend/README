@@ -14,3 +14,11 @@ task #1
 -added admin service to handle admin level tasks
 -adding tasks to localstrogare as well
 -added urls as well
+
+----------------------------------------------------------------------
+-Admins can now assign the tasks to all the existing users in the database
+-created method for the same in admin service
+-updated sample_data
+-added email field in database 
+-while opening the diaog, it takes input of roles, and based on the roles different types of forms are being opened
+###-> need to refcator the logic where i am setting id's based on the user name in forms(during admin login)

@@ -7,6 +7,7 @@ import { CreateTaskComponent } from '../../partials/create-task/create-task.comp
 import { Observable } from 'rxjs';
 import { UserService } from '../../../services/user.service';
 import { AdminService } from '../../../services/admin.service';
+import { Roles } from '../../../shared/constants/roles';
 
 @Component({
   selector: 'app-home',
@@ -15,7 +16,7 @@ import { AdminService } from '../../../services/admin.service';
 })
 export class HomeComponent implements OnInit {
 
-  task: Task[] = [];
+  task: JiraTask[] = [];
   notFound!: boolean;
 
   constructor(private _taskService: TaskService, private _activatedRoutes: ActivatedRoute, private _router: Router, public dialogRef: MatDialog, private _userService: UserService, private _adminService: AdminService) {
@@ -53,7 +54,9 @@ export class HomeComponent implements OnInit {
   }
 
   createNewTask() {
-    let dialog = this.dialogRef.open(CreateTaskComponent, {});
+    let dialog = this.dialogRef.open(CreateTaskComponent, {
+      data: { type: Roles.EMPLOYEE }
+    });
     dialog.afterClosed().subscribe((resp: any) => {
       if (resp) {
         this._adminService.createNewTask(resp.value)
