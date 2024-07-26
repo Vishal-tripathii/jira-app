@@ -8,7 +8,13 @@
     <div class="action-container">
       <div class="action-btns">
         <button class="delete-button" (click)="deleteTask(task.id)">Delete Task</button>
-        <button (click)="completeTask()">Mark as Complete</button>
+        <p>Status: {{task.status}}</p>
+        <label for="status">
+          <select id="status" [(ngModel)]="selectedStatus">
+            <option *ngFor="let item of statusValues" [value]="item">{{ item }}</option>
+          </select>
+          <button (click)="change(selectedStatus, task)">change value</button>
+        </label>
         <button (click)="openDialog()">Edit</button>
       </div>
       <!-- Conditionally show the user selection and assign button -->

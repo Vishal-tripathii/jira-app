@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 import { AdminService } from '../../../services/admin.service';
 import { UserService } from '../../../services/user.service';
 import { Roles } from '../../../shared/constants/roles';
+import { Status } from '../../../shared/models/status';
 
 @Component({
   selector: 'app-task-page',
@@ -21,6 +22,8 @@ export class TaskPageComponent implements OnInit {
   userType!: any;
   existingUsers!: any;
   selectedUser!: any;
+  statusValues = Object.values(Status)
+  selectedStatus!: any;
 
   constructor(private _taskService: TaskService,
     private _activatedRoutes: ActivatedRoute,
@@ -86,8 +89,9 @@ export class TaskPageComponent implements OnInit {
     })
   }
 
-  completeTask() {
-    this._taskService.markAsComplete(this.task)
+  change(statusValue: string, task: any) {
+    this.selectedStatus = statusValue;
+    this._adminService.changeStatus({ ...task, status: statusValue }); // the task is not updating on frontend simultaneously, need to fix that
   }
 
   assignTo(user: any, _id: string) {

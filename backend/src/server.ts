@@ -356,6 +356,23 @@ app.post('/api/jira/assignTask', async (req, res) => {
     }
 });
 
+app.post("/api/jira/changeStatus", async (req, resp) => {
+    try {
+        const currentTask = req.body // getting the whole updated body from service
+        const updatedStatus = await JiraTask.findOneAndUpdate(
+            { _id: currentTask._id }, //using '_id' as the identifier
+            currentTask,
+        );
+        resp.status(200).send(updatedStatus)
+        console.log(updatedStatus, "sucess in updateing focumenttttt");
+
+
+    } catch (error) {
+        console.log("Error in Updaeing document!");
+
+    }
+})
+
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
