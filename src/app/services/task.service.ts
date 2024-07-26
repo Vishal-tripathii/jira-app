@@ -46,7 +46,7 @@ export class TaskService {
   }
 
   getTaskById(id: string): Observable<any> {
-    return of(this.tasks.find(item => item.id === id)) // we can use null operator in case nothing is defined (??) like this instead of undefined
+    return of(this.tasks.find(item => item._id === id)) // we can use null operator in case nothing is defined (??) like this instead of undefined
   }
 
   removeTask(id: string): void {

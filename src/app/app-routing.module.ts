@@ -16,7 +16,7 @@ const routes: Routes = [
     component: HomeComponent
   },
   {
-    path: 'task/:id',
+    path: 'task/:id/:userType',
     component: TaskPageComponent
   },
   {

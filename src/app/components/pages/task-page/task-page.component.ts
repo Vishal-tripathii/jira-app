@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { TaskService } from '../../../services/task.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Task } from '../../../shared/models/task';
+import { JiraTask, Task } from '../../../shared/models/task';
 import { MatDialog } from '@angular/material/dialog';
 import { TaskFormComponent } from '../../partials/task-form/task-form.component';
 import { Observable } from 'rxjs';
 import { AdminService } from '../../../services/admin.service';
+import { UserService } from '../../../services/user.service';
+import { Roles } from '../../../shared/constants/roles';
 
 @Component({
   selector: 'app-task-page',
@@ -14,12 +16,24 @@ import { AdminService } from '../../../services/admin.service';
 })
 export class TaskPageComponent implements OnInit {
 
-  task!: Task | undefined;
+  task!: JiraTask | undefined;
   updateTask!: any;
+  userType!: any;
+  existingUsers!: any;
+  selectedUser!: any;
 
-  constructor(private _taskService: TaskService, private _activatedRoutes: ActivatedRoute, private _router: Router, public dialogRef: MatDialog, private _adminService: AdminService) {
+  constructor(private _taskService: TaskService,
+    private _activatedRoutes: ActivatedRoute,
+    private _router: Router,
+    public dialogRef: MatDialog,
+    private _adminService: AdminService,
+    private _userService: UserService) {
     let taskObservable: Observable<Task>
+    this._userService.getExistingUsers().subscribe((serverResponse: any) => {
+      this.existingUsers = serverResponse
+    })
     this._activatedRoutes.params.subscribe((params: any) => {
+      this.userType = params['userType']; // if userType is aDMIn then need to change the template
       if (params.id) {
         taskObservable = this._taskService.getTaskById(params.id)
       }
@@ -30,10 +44,6 @@ export class TaskPageComponent implements OnInit {
   }
   ngOnInit(): void {
 
-  }
-
-  isCompleted() {
-    return this.task?.isCompleted;
   }
 
   getDate() {
@@ -77,8 +87,16 @@ export class TaskPageComponent implements OnInit {
   }
 
   completeTask() {
-    console.log(this.task, "task-page");
-
     this._taskService.markAsComplete(this.task)
+  }
+
+  assignTo(user: any, _id: string) {
+    const { name, email } = user
+    this.selectedUser = { name: name, email: email, _id: _id }
+    this._adminService.assignTaskToOtherUser(this.selectedUser)
+  }
+
+  getUserType() {
+    return this.userType === Roles.ADMIN;
   }
 }

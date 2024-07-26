@@ -22,3 +22,20 @@ task #1
 -added email field in database 
 -while opening the diaog, it takes input of roles, and based on the roles different types of forms are being opened
 ###-> need to refcator the logic where i am setting id's based on the user name in forms(during admin login)
+
+--------------------------------------------------------------------------------------------------------------------------------
+-fixed the login where i can see all the existing users in database
+    -added the function for the same in userService file
+    -using it in create-task page to assign task to users
+    -using it in task-page(when logged-in by ADMIN), to change the assignent of task to different person
+    - added method in server file getExistingUsers
+
+-added api to assignTask to users, using it in task-page when logged in from ADMIN account
+- changed id to _id, becuase then it would not be unique by the logic i am storing it in database
+
+-made necessary changed to task-page to handle different roles login
+-url changes
+-added _id to JiraTask (task.ts)
+
+
+

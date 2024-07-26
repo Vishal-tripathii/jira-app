@@ -27,7 +27,9 @@ export class CreateTaskComponent implements OnInit {
     private _userService: UserService,
     private _adminService: AdminService) {
     this.formType = this.data.type;
-    this.existingUsers = this._adminService.getExistingUserDetailsByEmail();
+    this._userService.getExistingUsers().subscribe((serverResponse: any) => {
+      this.existingUsers = serverResponse
+    })
   }
 
   ngOnInit(): void {
@@ -65,7 +67,7 @@ export class CreateTaskComponent implements OnInit {
     if (this.createForm.dirty && this.createForm.valid) {
       this.existingUsers.forEach((item: any) => { // need to refactor this idea, this is very brute force i think
         if (item.name === this.createForm.value.name) {
-          this.createForm.controls['id'].setValue(item.id);
+          this.createForm.controls['id'].setValue(item._id);
           this.createForm.controls['email'].setValue(item.email)
         }
       })

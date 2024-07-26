@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { CreateTaskComponent } from '../../partials/create-task/create-task.component';
 import { Roles } from '../../../shared/constants/roles';
 import { ActivatedRoute, Router } from '@angular/router';
+import { UserService } from '../../../services/user.service';
 
 @Component({
   selector: 'app-admin-page',
@@ -17,10 +18,14 @@ export class AdminPageComponent implements OnInit {
   task: JiraTask[] = [];
   searchTerm: string = '';
   statusTerm: string = ''
+  currentUser!: any;
 
   constructor(private _adminService: AdminService,
     public dialogRef: MatDialog,
-    private _activatedRoute: ActivatedRoute) {
+    private _activatedRoute: ActivatedRoute,
+    private _UserService: UserService,
+    private _router: Router) {
+    this.currentUser = this._UserService.getCurrentUser();
     let taskObservable: Observable<JiraTask[]>
     this._activatedRoute.params.subscribe((params: any) => {
       if (params.searchTerm) {
@@ -53,6 +58,10 @@ export class AdminPageComponent implements OnInit {
         this._adminService.createNewTask(resp.value)
       }
     })
+  }
+
+  goto(_id: string) {
+    this._router.navigate([`task/${_id}`, this.currentUser.role])
   }
 
 }

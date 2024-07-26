@@ -2,7 +2,7 @@
 <app-status-filter [statusTerm]="statusTerm" statusRoute="admin-page/status"></app-status-filter>
 <div class="tasks-container">
     <div *ngFor="let item of task" class="task-item">
-        <a>
+        <a (click)="goto(item._id)">
             <app-admin-task-card [task]="item"></app-admin-task-card>
         </a>
     </div>

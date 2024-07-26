@@ -4,7 +4,7 @@
 
 <div *ngIf="!notFound" class="tasks-container">
   <div *ngFor="let item of task" class="task-item">
-    <a (click)="goto(item.id)">
+    <a (click)="goto(item._id)">
       <app-task-card [task]="item"></app-task-card>
     </a>
   </div>

@@ -24,6 +24,7 @@ import { AdminPageComponent } from './components/pages/admin-page/admin-page.com
 import { MatCardModule } from '@angular/material/card';
 import { AdminTaskCardComponent } from './components/partials/admin-task-card/admin-task-card.component';
 import { StatusFilterComponent } from './components/partials/status-filter/status-filter.component';
+import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,7 +52,8 @@ import { StatusFilterComponent } from './components/partials/status-filter/statu
     MatButtonModule,
     MatIconModule,
     HttpClientModule,
-    MatCardModule
+    MatCardModule,
+    FormsModule
   ],
   providers: [
     provideAnimationsAsync()

@@ -15,5 +15,7 @@ export const JIRA_ADD_TASK_URL = JIRA_BASE + "/addNewTask"
 export const JIRA_GET_USER_DATA_URL = JIRA_BASE + "/getUserData"
 export const JIRA_DELETE_URL = JIRA_BASE + "/"
 export const JIRA_EDIT_USER_TASK = JIRA_BASE + "/editTask"
+export const JIRA_GET_EXISTING_USERS = JIRA_BASE + "/getExistingUsers"
+export const JIRA_ASSIGN_USER_URL = JIRA_BASE + "/assignTask"
 
 

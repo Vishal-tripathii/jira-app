@@ -1,19 +1,25 @@
 <div *ngIf="task" class="task-page">
-  <h1 class="task-name">Name: {{ task.name }}</h1>
+  <h1 class="task-name">Name: {{ task.taskName }}</h1>
   <div class="task-details">
     <p><strong>Description:</strong> {{ task.description }}</p>
     <p><strong>Priority:</strong> {{ task.priority }}</p>
     <p><strong>Created:</strong> {{ getDate() }}</p>
     <p *ngIf="task.dateModified"><strong>Modified:</strong> {{ getModifiedDate() }}</p>
-
-    <p><strong>Status:</strong>
-      <span [ngClass]="{'complete': isCompleted() === 'Completed', 'incomplete' : isCompleted() === 'Incomplete' }">
-        {{ isCompleted() }}</span>
-    </p>
     <div class="action-container">
-      <button class="delete-button" (click)="deleteTask(task.id)">Delete Task</button>
-      <button (click)="completeTask()">Mark as Complete</button>
-      <button (click)="openDialog()">Edit</button>
+      <div class="action-btns">
+        <button class="delete-button" (click)="deleteTask(task.id)">Delete Task</button>
+        <button (click)="completeTask()">Mark as Complete</button>
+        <button (click)="openDialog()">Edit</button>
+      </div>
+      <!-- Conditionally show the user selection and assign button -->
+      <label for="users">Assign This task to</label>
+      <div *ngIf="getUserType()" class="assign-action">
+        <select id="users" [(ngModel)]="selectedUser">
+          <option *ngFor="let user of existingUsers" [ngValue]="user">{{ user.name }} {{ user.email }}</option>
+        </select>
+        <button class="assign-btn" (click)="assignTo(selectedUser, task._id)">Assign</button>
+      </div>
+
     </div>
   </div>
 </div>

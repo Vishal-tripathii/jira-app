@@ -20,9 +20,10 @@ export class HomeComponent implements OnInit {
   notFound!: boolean;
   searchTerm: string = ''
   statusTerm: string = ''
+  currentUser!: any;
 
   constructor(private _taskService: TaskService, private _activatedRoutes: ActivatedRoute, private _router: Router, public dialogRef: MatDialog, private _userService: UserService, private _adminService: AdminService) {
-    let currentUser = this._userService.getCurrentUser();
+    this.currentUser = this._userService.getCurrentUser();
 
     this._taskService.myTasks.subscribe((resp: any) => {
       this.notFound = resp.length > 0 ? false : true;
@@ -39,7 +40,7 @@ export class HomeComponent implements OnInit {
         taskObservable = _taskService.filterTaskByStatusCriteria(params.statusTerm)
       }
       else {
-        taskObservable = this._adminService.getUserTasks(currentUser?._id!);
+        taskObservable = this._adminService.getUserTasks(this.currentUser?._id!);
       }
       taskObservable.subscribe((serverResponse: any) => {
         this.task = serverResponse;
@@ -51,9 +52,9 @@ export class HomeComponent implements OnInit {
 
   }
 
-  goto(id: string) {
-    if (id) {
-      this._router.navigate([`task/${id}`])
+  goto(_id: string) {
+    if (_id) {
+      this._router.navigate([`task/${_id}`, this.currentUser.role])
     }
   }
 

@@ -1,59 +1,101 @@
+/* General styling for task page and action container */
 .task-page {
-  max-width: 800px;
-  margin: 20px auto;
   padding: 20px;
-  background-color: #f9f9f9;
-  border: 1px solid #ddd;
+  background-color: #f5f5f5;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .task-name {
-  font-size: 2.5em;
+  font-size: 24px;
   font-weight: bold;
-  color: #333;
   margin-bottom: 10px;
 }
 
 .task-details {
-  font-size: 1.5em;
-  color: #555;
-  margin-top: 20px;
-}
-
-.task-details p {
-  margin-bottom: 10px;
-}
-
-.task-details strong {
-  font-weight: bold;
-}
-
-@media (max-width: 600px) {
-  .task-page {
-    padding: 10px;
-  }
-
-  .task-name {
-    font-size: 2em;
-  }
-
-  .task-details {
-    font-size: 1.2em;
-  }
-}
-
-.complete {
-  font-style: italic;
-  color: green;
-}
-
-.incomplete {
-  font-style: italic;
-  color: red;
+  background-color: #ffffff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .action-container {
+  margin-top: 20px;
+}
+
+.flex-container {
   display: flex;
   justify-content: space-around;
+}
+
+button {
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+button:hover {
+  background-color: #0056b3;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+button.delete-button {
+  background-color: #dc3545;
+}
+
+button.delete-button:hover {
+  background-color: #c82333;
+}
+
+/* Styling for dropdown box */
+select {
+  padding: 10px 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  width: 70%;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  color: #333;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+select:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+  outline: none;
+}
+
+option {
+  padding: 10px;
+}
+
+select::-ms-expand {
+  display: none;
+}
+
+/* Styling for the label */
+label {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.action-btns {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.assign-action {
+  display: flex;
+  justify-content: space-between;
+}
+
+.assign-btn {
+  width: 28%;
 }

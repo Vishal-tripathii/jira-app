@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of, Subject, tap } from 'rxjs';
 import { JiraTask } from '../shared/models/task';
 import { HttpClient } from '@angular/common/http';
-import { JIRA_ADD_TASK_URL, JIRA_DELETE_URL, JIRA_EDIT_USER_TASK, JIRA_GET_USER_DATA_URL, JIRA_LOGIN_URL, JIRA_TASK_URL } from '../shared/constants/urls';
+import { JIRA_ADD_TASK_URL, JIRA_ASSIGN_USER_URL, JIRA_DELETE_URL, JIRA_EDIT_USER_TASK, JIRA_GET_USER_DATA_URL, JIRA_LOGIN_URL, JIRA_TASK_URL } from '../shared/constants/urls';
 
 @Injectable({
   providedIn: 'root'
@@ -116,6 +116,18 @@ export class AdminService {
 
   getTasksByStatus(taskStatus: string) {
     return of(this.tasks.filter(item => item.status === taskStatus))
+  }
+
+  assignTaskToOtherUser(user: any) {
+    this._http.post<any>(JIRA_ASSIGN_USER_URL, user).subscribe({
+      next: (user) => {
+        console.log("user assigned sucessfully: ", user);
+      },
+      error: (error) => {
+        console.log("error in Assigning: ", error);
+      }
+    }
+    )
   }
 
   private setTaskToLocalStorage(tasks: JiraTask[]): void {

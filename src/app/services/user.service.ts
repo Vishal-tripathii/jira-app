@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { IUserLogin } from '../shared/interfaces/IUserLogin';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../shared/models/user';
-import { JIRA_LOGIN_URL, JIRA_REGISTER_URL } from '../shared/constants/urls';
+import { JIRA_GET_EXISTING_USERS, JIRA_LOGIN_URL, JIRA_REGISTER_URL } from '../shared/constants/urls';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { IUserRegister } from '../shared/interfaces/IUserRegister';
 
@@ -14,6 +14,7 @@ const USER_KEY = 'User';
 export class UserService {
   private userSubject = new BehaviorSubject<User | null>(this.getUserFromLocalStorage());
   public userObservable: Observable<User | null>;
+  existingUsers!: any;
 
   constructor(private _http: HttpClient) {
     this.userObservable = this.userSubject.asObservable();
@@ -55,6 +56,10 @@ export class UserService {
         }
       })
     );
+  }
+
+  getExistingUsers() {
+    return this._http.get<User>(JIRA_GET_EXISTING_USERS);
   }
 
   private setUserToLocalStorage(user: User) {

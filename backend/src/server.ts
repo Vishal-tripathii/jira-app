@@ -40,7 +40,7 @@ const TaskSchema = new mongoose.Schema({
 });
 
 const jiraTaskSchema = new mongoose.Schema({
-    email: {type: String, required: true},
+    email: { type: String, required: true },
     id: { type: String, required: true },
     name: { type: String, required: true },
     taskName: { type: String, required: true },
@@ -169,10 +169,8 @@ app.post('/api/task/addNewTask', async (req, res) => {
 app.post('/api/task/markAsComplete', async (req, resp) => {
     try {
         const markTask = req.body;
-        console.log(markTask);
         const update = await Task.findOneAndUpdate(markTask, { isCompleted: 'Completed' });
         resp.status(200).send(update)
-
     } catch (error) {
         console.log("Error in Updaeing document!");
 
@@ -202,8 +200,6 @@ app.post('/api/task/login', async (req, res) => {
     const { email, password } = req.body;
     try {
         const user = await User.findOne({ email: email });
-        console.log(user, "Userr");
-
         if (!user) {
             return res.status(400).send('User not found');
         }
@@ -241,8 +237,6 @@ app.post('/api/jira/login', async (req, resp) => {
     const { email, password } = req.body;
     try {
         const user = await User.findOne({ email: email });
-        console.log(user, "Userr");
-
         if (!user) {
             return resp.status(400).send('User not found');
         }
@@ -304,8 +298,6 @@ app.get("/api/jira/getUserData", async (req, resp) => {
 });
 app.delete('/api/jira/:id', async (req, resp) => {
     const taskId = req.params.id;
-    console.log(taskId, "this is taskId");
-
     try {
         const result = await JiraTask.deleteOne({ id: taskId })
         if (result.deletedCount === 1) {
@@ -335,6 +327,34 @@ app.post("/api/jira/editTask", async (req, resp) => {
         resp.status(500).send("Internal Server Error");
     }
 })
+
+app.get("/api/jira/getExistingUsers", async (req, resp) => {
+    try {
+        const users = await User.find();
+        resp.status(200).json(users)
+    } catch (error) {
+        resp.status(500).send("Error fetching Users")
+    }
+})
+
+app.post('/api/jira/assignTask', async (req, res) => {
+    try {
+        const { _id, name, email } = req.body;
+
+        const updatedUser = await JiraTask.findOneAndUpdate(
+            { _id: _id },  // seatching the database against this _id
+            { name: name, email: email }, // upadting the fields for the same
+        );
+
+        if (!updatedUser) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        res.status(200).json({ message: 'User updated successfully', user: updatedUser });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Server error' });
+    }
+});
 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
