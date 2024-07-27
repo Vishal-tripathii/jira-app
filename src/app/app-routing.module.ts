@@ -5,6 +5,7 @@ import { TaskPageComponent } from './components/pages/task-page/task-page.compon
 import { LoginPageComponent } from './components/pages/login-page/login-page.component';
 import { RegisterPageComponent } from './components/partials/register-page/register-page.component';
 import { AdminPageComponent } from './components/pages/admin-page/admin-page.component';
+import { UserSearchComponent } from './components/partials/user-search/user-search.component';
 
 const routes: Routes = [
   {
@@ -42,6 +43,10 @@ const routes: Routes = [
   {
     path: 'admin-page/status/:statusTerm',
     component: AdminPageComponent
+  },
+{
+    path:'search',
+    component: UserSearchComponent
   }
 ];
 

@@ -3,7 +3,7 @@ import { IUserLogin } from '../shared/interfaces/IUserLogin';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../shared/models/user';
 import { JIRA_GET_EXISTING_USERS, JIRA_LOGIN_URL, JIRA_REGISTER_URL } from '../shared/constants/urls';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { BehaviorSubject, Observable, of, tap } from 'rxjs';
 import { IUserRegister } from '../shared/interfaces/IUserRegister';
 
 const USER_KEY = 'User';
@@ -18,6 +18,7 @@ export class UserService {
 
   constructor(private _http: HttpClient) {
     this.userObservable = this.userSubject.asObservable();
+    this.getExistingUsers().subscribe(resp => this.existingUsers = resp)
   }
 
   getCurrentUser(): User | null {
@@ -60,6 +61,13 @@ export class UserService {
 
   getExistingUsers() {
     return this._http.get<User>(JIRA_GET_EXISTING_USERS);
+  }
+
+  searchExisitingUser(input: any): Observable<any> {
+    if (input) {
+      return of(this.existingUsers.filter((item: any) => item.name.toLowerCase().includes(input.toLowerCase())))
+    }
+    return of([])
   }
 
   private setUserToLocalStorage(user: User) {

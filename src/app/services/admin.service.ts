@@ -141,6 +141,14 @@ export class AdminService {
     })
   }
 
+  searchUsers(input: string): Observable<any> {
+    if (input) {
+      console.log("entered if");
+      return of(this.tasks.filter(item => item.name.toLowerCase().includes(input.toLowerCase())));
+    }
+    return of([]);
+  }
+
   private setTaskToLocalStorage(tasks: JiraTask[]): void {
     localStorage.setItem('tasks', JSON.stringify(tasks));
   }

@@ -37,5 +37,15 @@ task #1
 -url changes
 -added _id to JiraTask (task.ts)
 
+-----------------------------------------------------------------
+-added a search feature but it is on different route
+-added method in user service
+-added a variable that holds all the current users
+-added a user-menu page(but thinking of removing it, seems very unnecessary to me)
 
+reworks:-
+-need to get the search-user to homepage of admin
+ -my expectation:
+  -when u search user, all the task should disapper and list appears
+  -if u empty that searchbox, it would return to default view
 

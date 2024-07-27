@@ -25,6 +25,8 @@ import { MatCardModule } from '@angular/material/card';
 import { AdminTaskCardComponent } from './components/partials/admin-task-card/admin-task-card.component';
 import { StatusFilterComponent } from './components/partials/status-filter/status-filter.component';
 import { FormsModule } from '@angular/forms';
+import { UserSearchComponent } from './components/partials/user-search/user-search.component';
+import { UserMenuComponent } from './components/partials/user-menu/user-menu.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,6 +44,8 @@ import { FormsModule } from '@angular/forms';
     AdminPageComponent,
     AdminTaskCardComponent,
     StatusFilterComponent,
+    UserSearchComponent,
+    UserMenuComponent,
     
   ],
   imports: [
