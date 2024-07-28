@@ -65,3 +65,41 @@
 .results-list ul li:hover {
   background-color: #f0f0f0;
 }
+.user-menu {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Aligns items to each end */
+  padding: 15px;
+  border-radius: 8px;
+  background-color: #f5f5f5;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+
+  .details {
+    flex: 1;
+    h3 {
+      margin: 0;
+      font-size: 20px;
+      color: #333;
+    }
+    p {
+      margin: 5px 0;
+      font-size: 14px;
+      color: #666;
+    }
+  }
+
+  .role {
+    margin-left: 20px; /* Adjust spacing between details and role */
+    p {
+      margin: 5px 0;
+      font-size: 14px;
+      color: #666;
+      text-align: right; /* Align role text to the right */
+    }
+  }
+}

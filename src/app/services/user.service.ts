@@ -63,9 +63,9 @@ export class UserService {
     return this._http.get<User>(JIRA_GET_EXISTING_USERS);
   }
 
-  searchExisitingUser(input: any): Observable<any> {
+  searchExisitingUser(input: string): Observable<any> {
     if (input) {
-      return of(this.existingUsers.filter((item: any) => item.name.toLowerCase().includes(input.toLowerCase())))
+      return of(this.existingUsers?.filter((item: any) => item.name.toLowerCase().includes(input.toLowerCase())))
     }
     return of([])
   }

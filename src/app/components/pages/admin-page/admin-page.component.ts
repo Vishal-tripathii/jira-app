@@ -19,6 +19,7 @@ export class AdminPageComponent implements OnInit {
   searchTerm: string = '';
   statusTerm: string = ''
   currentUser!: any;
+  searchInfo!: any;
 
   constructor(private _adminService: AdminService,
     public dialogRef: MatDialog,
@@ -62,6 +63,18 @@ export class AdminPageComponent implements OnInit {
 
   goto(_id: string) {
     this._router.navigate([`task/${_id}`, this.currentUser.role])
+  }
+
+  handleUserSelected(userSearch: any) {
+    if (userSearch) {
+      this._UserService.searchExisitingUser(userSearch)
+        .subscribe((result: any) => {
+          this.searchInfo = result;
+        });
+    }
+    else {
+      this.searchInfo = []
+    }
   }
 
 }

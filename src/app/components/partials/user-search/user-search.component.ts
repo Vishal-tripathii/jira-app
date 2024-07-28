@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, input, OnInit, Output } from '@angular/core';
 import { AdminService } from '../../../services/admin.service';
 import { UserService } from '../../../services/user.service';
 
@@ -10,16 +10,15 @@ import { UserService } from '../../../services/user.service';
 export class UserSearchComponent implements OnInit {
 
   userInformation: any;
+  @Input() searchResult!: any;
+  @Output() userSearch = new EventEmitter<any>();
 
   constructor(private _adminService: AdminService, private _userService: UserService) { }
   ngOnInit(): void {
   }
 
   search(term: string): void {
-    this._userService.searchExisitingUser(term)
-      .subscribe((result: any) => {
-        this.userInformation = result;
-      });
+    this.userSearch.emit(term);
   }
 
   onClick(item: any) {

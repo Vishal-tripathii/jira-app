@@ -1,18 +1,3 @@
-<!-- <div class="search-container">
-    <div class="search-input-container">
-        <input #s type="text" placeholder="Search user!" (input)="search(s.value)" [value]="s.value"
-               class="search-input" />
-        <button (click)="search(s.value)" class="search-button">Search</button>
-    </div>
-    
-    <div *ngIf="userInformation" class="search-results">
-        <ul *ngFor="let item of userInformation" (click)="onClick(item)">
-            <li>{{ item.name }}</li>
-        </ul>
-    </div>
-</div> -->
-
-<!-- Search container -->
 <div class="search-container">
   <div class="search-input-container">
     <input
@@ -27,12 +12,19 @@
   </div>
 </div>
 
-<!-- Search results -->
-<div class="search-results">
+<div class="search-results" *ngIf="searchResult">
   <div class="results-list">
     <ul>
-      <li *ngFor="let item of userInformation" (click)="onClick(item)">
-        <app-user-menu [userDetails]="item"></app-user-menu>
+      <li *ngFor="let item of searchResult" (click)="onClick(item)">
+        <div class="user-menu">
+          <div class="details">
+            <h3>{{ item.name }}</h3>
+            <p>{{ item.email }}</p>
+          </div>
+          <div class="role">
+            <p>{{ item.role }}</p>
+          </div>
+        </div>
       </li>
     </ul>
   </div>
