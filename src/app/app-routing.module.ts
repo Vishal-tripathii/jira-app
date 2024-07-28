@@ -6,6 +6,7 @@ import { LoginPageComponent } from './components/pages/login-page/login-page.com
 import { RegisterPageComponent } from './components/partials/register-page/register-page.component';
 import { AdminPageComponent } from './components/pages/admin-page/admin-page.component';
 import { UserSearchComponent } from './components/partials/user-search/user-search.component';
+import { UserMenuComponent } from './components/partials/user-menu/user-menu.component';
 
 const routes: Routes = [
   {
@@ -44,9 +45,13 @@ const routes: Routes = [
     path: 'admin-page/status/:statusTerm',
     component: AdminPageComponent
   },
-{
-    path:'search',
+  {
+    path: 'search',
     component: UserSearchComponent
+  },
+  {
+    path: 'user-menu/:currentuserId',
+    component: UserMenuComponent
   }
 ];
 

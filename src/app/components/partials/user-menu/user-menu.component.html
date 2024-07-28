@@ -1,9 +1,25 @@
-<div class="user-menu">
-  <div class="details">
-    <h3>{{ userDetails.name }}</h3>
-    <p>{{ userDetails.email }}</p>
+<div class="user-menu-container">
+  <div class="profile-section">
+    <div class="profile-card">
+      <h2>User Profile</h2>
+      <div class="profile-info" *ngIf="userProfile">
+        <p><strong>Name:</strong> {{ userProfile.name }}</p>
+        <p><strong>Email:</strong> {{ userProfile.email }}</p>
+        <p><strong>Role:</strong> {{ userProfile.role }}</p>
+      </div>
+    </div>
   </div>
-  <div class="role">
-    <p>{{ userDetails.role }}</p>
+
+  <div class="task-container">
+    <h2>Task List</h2>
+    <ul>
+      <li *ngFor="let item of userData">
+        <div class="task-section">
+          <p><strong>Task Name:</strong> {{ item.taskName }}</p>
+          <p><strong>Description:</strong> {{ item.description }}</p>
+          <p><strong>Date Created:</strong> {{ item.dateCreated }}</p>
+        </div>
+      </li>
+    </ul>
   </div>
 </div>

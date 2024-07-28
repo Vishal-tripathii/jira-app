@@ -1,6 +1,5 @@
-import { Component, EventEmitter, Input, input, OnInit, Output } from '@angular/core';
-import { AdminService } from '../../../services/admin.service';
-import { UserService } from '../../../services/user.service';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-search',
@@ -13,15 +12,15 @@ export class UserSearchComponent implements OnInit {
   @Input() searchResult!: any;
   @Output() userSearch = new EventEmitter<any>();
 
-  constructor(private _adminService: AdminService, private _userService: UserService) { }
-  ngOnInit(): void {
-  }
+  constructor(private _router: Router) { }
+
+  ngOnInit(): void { }
 
   search(term: string): void {
     this.userSearch.emit(term);
   }
 
-  onClick(item: any) {
-    console.log(item);
+  onClick(currentuserId: any) {
+    this._router.navigate(['user-menu', currentuserId]);
   }
 }

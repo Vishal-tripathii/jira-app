@@ -15,8 +15,8 @@
 <div class="search-results" *ngIf="searchResult">
   <div class="results-list">
     <ul>
-      <li *ngFor="let item of searchResult" (click)="onClick(item)">
-        <div class="user-menu">
+      <li *ngFor="let item of searchResult">
+        <div class="user-menu" (click)="onClick(item._id)">
           <div class="details">
             <h3>{{ item.name }}</h3>
             <p>{{ item.email }}</p>

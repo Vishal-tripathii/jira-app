@@ -1,38 +1,48 @@
-.user-menu {
-  display: flex;
-  align-items: center;
-  justify-content: space-between; /* Aligns items to each end */
-  padding: 15px;
-  border-radius: 8px;
-  background-color: #f5f5f5;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: box-shadow 0.3s ease;
+.user-menu-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 
-  &:hover {
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-  }
+.profile-section {
+  margin-bottom: 20px;
+}
 
-  .details {
-    flex: 1;
-    h3 {
-      margin: 0;
-      font-size: 20px;
-      color: #333;
-    }
-    p {
-      margin: 5px 0;
-      font-size: 14px;
-      color: #666;
-    }
-  }
+.profile-card {
+  background-color: #fff;
+  padding: 20px;
+  border: 1px solid #ddd;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 
-  .role {
-    margin-left: 20px; /* Adjust spacing between details and role */
-    p {
-      margin: 5px 0;
-      font-size: 14px;
-      color: #666;
-      text-align: right; /* Align role text to the right */
-    }
-  }
+.profile-info {
+  margin-top: 10px;
+}
+
+.profile-info p {
+  margin-bottom: 10px;
+}
+
+.task-container {
+  margin-top: 20px;
+}
+
+.task-container h2 {
+  margin-top: 0;
+}
+
+.task-section {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.task-section:last-child {
+  border-bottom: none;
+}
+
+.task-section p {
+  margin-bottom: 10px;
 }
