@@ -35,7 +35,7 @@ export class LoginPageComponent implements OnInit {
     if (this.loginForm.invalid) return;
 
     this._userService.login({ email: this.fc.email.value, password: this.fc.password.value }).subscribe((resp: any) => {
-      resp.role === Roles.ADMIN ? this._router.navigate(['/admin-page']) : this._router.navigate([''])
+      resp.role === Roles.ADMIN ? this._router.navigate(['/admin-page']) : this._router.navigate(['/home-page'])
     })
 
 

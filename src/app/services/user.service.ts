@@ -7,13 +7,14 @@ import { BehaviorSubject, Observable, of, tap } from 'rxjs';
 import { IUserRegister } from '../shared/interfaces/IUserRegister';
 
 const USER_KEY = 'User';
+const TASKS_KEY = 'tasks';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
   private userSubject = new BehaviorSubject<User | null>(this.getUserFromLocalStorage());
-  public userObservable: Observable<User | null>;
+  public userObservable: Observable<any | null>;
   existingUsers!: any;
 
   constructor(private _http: HttpClient) {
@@ -21,7 +22,7 @@ export class UserService {
     this.getExistingUsers().subscribe(resp => this.existingUsers = resp)
   }
 
-  getCurrentUser(): User | null {
+  getCurrentUser(): any | null {
     return this.userSubject.value;
   }
 
@@ -43,7 +44,8 @@ export class UserService {
   logout() {
     this.userSubject.next(null); // Set user state to null on logout
     localStorage.removeItem(USER_KEY); // Remove item from local storage
-    window.location.reload(); // Reload to update the UI
+    localStorage.removeItem(TASKS_KEY) // remove the data from the localstorage as well
+    // window.location.reload(); // Reload to update the UI
   }
 
   register(registerUser: IUserRegister): Observable<IUserRegister> {

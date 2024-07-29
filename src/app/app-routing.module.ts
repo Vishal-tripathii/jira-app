@@ -11,6 +11,10 @@ import { UserMenuComponent } from './components/partials/user-menu/user-menu.com
 const routes: Routes = [
   {
     path: '',
+    component: LoginPageComponent
+  },
+  {
+    path: 'home-page',
     component: HomeComponent
   },
   {

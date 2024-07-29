@@ -1,6 +1,6 @@
 <header>
   <div class="container">
-    <a routerLink="/" class="logo">TASK TRACKER</a>
+    <a (click)="gotoHome()" class="logo">TASK TRACKER</a>
 
     <nav>
       <ul>
@@ -14,7 +14,7 @@
 
         <!-- Show username and menu when user is logged in -->
         <li *ngIf="user" class="menu-container">
-          <a routerLink="/">{{ user.name }}</a>
+          <a>{{ user.name }}</a>
           <div class="menu">
             <a routerLink="/profile">Profile</a>
             <a routerLink="/orders">Orders</a>
