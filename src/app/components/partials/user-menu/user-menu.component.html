@@ -14,10 +14,8 @@
     <h2>Task List</h2>
     <ul>
       <li *ngFor="let item of userData">
-        <div class="task-section">
-          <p><strong>Task Name:</strong> {{ item.taskName }}</p>
-          <p><strong>Description:</strong> {{ item.description }}</p>
-          <p><strong>Date Created:</strong> {{ item.dateCreated }}</p>
+        <div class="task-section" (click)="goto(item._id)">
+          <app-task-card [task]="item"></app-task-card>
         </div>
       </li>
     </ul>
