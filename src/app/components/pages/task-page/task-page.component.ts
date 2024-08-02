@@ -103,4 +103,8 @@ export class TaskPageComponent implements OnInit {
   getUserType() {
     return this.userType === Roles.ADMIN;
   }
+
+  visitProfile(currentuserId: string) {
+    this._router.navigate(['user-menu', currentuserId])
+  }
 }

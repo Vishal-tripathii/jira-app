@@ -24,6 +24,7 @@
           <option *ngFor="let user of existingUsers" [ngValue]="user">{{ user.name }} {{ user.email }}</option>
         </select>
         <button class="assign-btn" (click)="assignTo(selectedUser, task._id)">Assign</button>
+        <button class="assign-btn" (click)="visitProfile(task.id)">GOTO profile</button>
       </div>
 
     </div>
