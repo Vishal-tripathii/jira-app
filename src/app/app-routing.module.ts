@@ -7,6 +7,7 @@ import { RegisterPageComponent } from './components/partials/register-page/regis
 import { AdminPageComponent } from './components/pages/admin-page/admin-page.component';
 import { UserSearchComponent } from './components/partials/user-search/user-search.component';
 import { UserMenuComponent } from './components/partials/user-menu/user-menu.component';
+import { userGuard } from './auth/user.guard';
 
 const routes: Routes = [
   {
@@ -39,15 +40,18 @@ const routes: Routes = [
   },
   {
     path: 'admin-page',
-    component: AdminPageComponent
+    component: AdminPageComponent,
+    canActivate: [userGuard]
   },
   {
     path: 'admin-page/search/:searchTerm',
-    component: AdminPageComponent
+    component: AdminPageComponent,
+    canActivate: [userGuard]
   },
   {
     path: 'admin-page/status/:statusTerm',
-    component: AdminPageComponent
+    component: AdminPageComponent,
+    canActivate: [userGuard]
   },
   {
     path: 'search',
